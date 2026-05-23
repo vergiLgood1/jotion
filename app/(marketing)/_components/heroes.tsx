@@ -15,7 +15,7 @@ const Heroes = () => {
         </div>
       </div>
 
-      <div className="absolute -right-3 bottom-16 hidden rounded-2xl border border-border bg-background/90 p-4 shadow-xl backdrop-blur lg:block" data-float-card>
+      <div className="absolute -right-3 bottom-24 hidden rounded-2xl border border-border bg-background/90 p-4 shadow-xl backdrop-blur lg:block z-10" data-float-card>
         <div className="flex items-center gap-3">
           <div className="rounded-full bg-primary/10 p-2 text-primary">
             <Globe2 className="h-4 w-4" />

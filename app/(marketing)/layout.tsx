@@ -9,7 +9,7 @@ const MarketingLayout = ({
     return ( 
         <div className="min-h-full bg-background text-foreground">
             <Navbar/>
-            <main className="min-h-full pt-24 md:pt-28">
+            <main className="min-h-full">
                 {children}
             </main>
         </div>

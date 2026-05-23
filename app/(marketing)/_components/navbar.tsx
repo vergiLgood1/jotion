@@ -1,63 +1,139 @@
-'use client'
+"use client";
 
 import { useConvexAuth } from "convex/react";
 import Link from "next/link";
 
-import { useScrollTop } from "@/hooks/use-scroll-top";
-import { cn } from "@/lib/utils";
-import { Logo } from "./logo";
+import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { ModeToggle } from "@/components/mode-toggle";
+import { useScrollTop } from "@/hooks/use-scroll-top";
+import { cn } from "@/lib/utils";
 import { SignInButton, UserButton } from "@clerk/clerk-react";
+import { Logo } from "./logo";
+
+const navItems = [
+    { label: "Story", href: "#story" },
+    { label: "Workflow", href: "#workflow" },
+    { label: "Features", href: "#features" },
+];
 
 const Navbar = () => {
-    const { isAuthenticated, isLoading } = useConvexAuth()
+    const { isAuthenticated, isLoading } = useConvexAuth();
     const scrolled = useScrollTop();
 
-    return ( 
-        <div className={cn(
-            "fixed top-0 z-50 flex w-full items-center bg-background/90 p-6 backdrop-blur supports-[backdrop-filter]:bg-background/70",
-            scrolled && "border-b border-border shadow-sm"
-        )}>
-            <Logo/>
-            <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
-                {isLoading && (
-                    <Spinner/>
-                )}
-                {!isAuthenticated && !isLoading && (
-                    <>
-                    <SignInButton mode="modal">
-                        <Button variant="ghost" size="sm">
-                            Log in
-                        </Button>
-                    </SignInButton>
-                    <SignInButton mode="modal">
-                        <Button size="sm">
-                            Get jotion for free
-                        </Button>
-                    </SignInButton>
-                    </>
-                ) }
-            {isAuthenticated && !isLoading && (
-                <>
-                <Button variant="ghost" size="sm" asChild>
-                    <Link href="/documents">
-                        Enter Jotion
-                    </Link>
-                </Button>
-                <UserButton
-                afterSignOutUrl="/" 
-                
-                />
-                
-                
-                </>
+    return (
+        <header
+            className={cn(
+                "fixed inset-x-0 top-4 z-50 px-3 transition-all duration-300 sm:px-6"
             )}
-                <ModeToggle/>
+        >
+            <div
+                className={cn(
+                    "mx-auto flex h-16 items-center justify-between px-4 transition-all duration-300 sm:px-6",
+                    scrolled
+                        ? "max-w-6xl rounded-full border border-border/40 bg-background/75 shadow-sm backdrop-blur-xl"
+                        : "max-w-8xl rounded-2xl bg-transparent"
+                )}
+            >
+                {/* LEFT */}
+                <div className="flex items-center">
+                    <Logo />
+
+                    <span className="mx-4 hidden text-muted-foreground/40 md:block">
+                        /
+                    </span>
+
+                    <nav
+                        className="hidden items-center md:flex"
+                        aria-label="Primary navigation"
+                    >
+                        <div className="flex items-center gap-1">
+                            {navItems.map((item) => (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className={cn(
+                                        "group relative rounded-full px-3 py-2",
+                                        "text-sm font-medium text-muted-foreground",
+                                        "transition-all duration-200",
+                                        "hover:text-foreground"
+                                    )}
+                                >
+                                    <span className="relative z-10">
+                                        {item.label}
+                                    </span>
+
+                                    <span
+                                        className={cn(
+                                            "absolute inset-0 rounded-full",
+                                            "bg-muted opacity-0",
+                                            "transition-opacity duration-200",
+                                            "group-hover:opacity-100"
+                                        )}
+                                    />
+                                </Link>
+                            ))}
+                        </div>
+                    </nav>
+                </div>
+
+                {/* RIGHT */}
+                <div className="flex items-center gap-2">
+                    {isLoading && <Spinner />}
+
+                    {!isAuthenticated && !isLoading && (
+                        <>
+                            <SignInButton mode="modal">
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className={cn(
+                                        "rounded-full px-4",
+                                        "text-sm font-medium"
+                                    )}
+                                >
+                                    Log in
+                                </Button>
+                            </SignInButton>
+
+                            <SignInButton mode="modal">
+                                <Button
+                                    size="sm"
+                                    className={cn(
+                                        "hidden rounded-full px-5 sm:inline-flex",
+                                        "font-medium shadow-sm"
+                                    )}
+                                >
+                                    Get Jotion free
+                                </Button>
+                            </SignInButton>
+                        </>
+                    )}
+
+                    {isAuthenticated && !isLoading && (
+                        <>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="rounded-full px-4"
+                                asChild
+                            >
+                                <Link href="/documents">
+                                    Enter Jotion
+                                </Link>
+                            </Button>
+
+                            <UserButton afterSignOutUrl="/" />
+                        </>
+                    )}
+
+                    <div className="ml-1">
+                        <ModeToggle />
+                    </div>
+                </div>
             </div>
-        </div>
-     );
-}
- 
+        </header>
+    );
+};
+
 export default Navbar;

@@ -1,7 +1,4 @@
-import Footer from "./_components/footer";
-import { Heading } from "./_components/heading";
-import Heroes from "./_components/heroes";
-import { MarketingAnimations } from "./_components/marketing-animations";
+import Plasma from "@/components/Plasma";
 import {
   ArchiveRestore,
   FileStack,
@@ -14,6 +11,10 @@ import {
   Share2,
   Sparkles,
 } from "lucide-react";
+import Footer from "./_components/footer";
+import { Heading } from "./_components/heading";
+import Heroes from "./_components/heroes";
+import { MarketingAnimations } from "./_components/marketing-animations";
 
 const workflow = [
   {
@@ -80,16 +81,29 @@ const features = [
 
 const MarketingPage = () => {
   return (
-    <div className="min-h-full overflow-hidden bg-background text-foreground">
+    <div id="top" className="min-h-full overflow-hidden bg-background text-foreground">
       <MarketingAnimations />
-      <section className="relative px-6 pb-20 pt-16 sm:pt-20">
-        <div className="absolute inset-x-0 top-0 -z-10 h-[620px] bg-[radial-gradient(circle_at_top,hsl(var(--muted)),transparent_62%)]" />
-        <div className="absolute left-1/2 top-24 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
-        <Heading />
-        <Heroes />
+      <section className="relative isolate overflow-hidden px-6 pb-32 pt-16 sm:pt-20">
+        <div className="absolute inset-0 -z-30 bg-background" />
+        <div className="absolute inset-x-0 top-[-7rem] -z-20 h-[1120px] opacity-85 sm:h-[1180px] lg:h-[1240px]">
+          <Plasma
+            color="#7c3aed"
+            speed={0.55}
+            direction="pingpong"
+            scale={1.15}
+            opacity={0.72}
+            mouseInteractive={false}
+          />
+        </div>
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_24%,transparent_0%,hsl(var(--background)/0.08)_44%,hsl(var(--background)/0.7)_88%)]" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-80 bg-gradient-to-b from-transparent via-background/75 to-background" />
+        <div className="relative z-10">
+          <Heading />
+          <Heroes />
+        </div>
       </section>
 
-      <section data-section-reveal className="mx-auto max-w-7xl px-6 py-20">
+      <section id="story" data-section-reveal className="relative mx-auto -mt-10 max-w-7xl scroll-mt-28 px-6 pb-20 pt-24">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
@@ -110,7 +124,7 @@ const MarketingPage = () => {
         </div>
       </section>
 
-      <section data-section-reveal className="mx-auto max-w-7xl px-6 py-20">
+      <section id="workflow" data-section-reveal className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20">
         <div className="mb-12 max-w-2xl">
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
             A simple flow
@@ -138,7 +152,7 @@ const MarketingPage = () => {
         </div>
       </section>
 
-      <section data-section-reveal className="mx-auto max-w-7xl px-6 py-20">
+      <section id="features" data-section-reveal className="mx-auto max-w-7xl scroll-mt-28 px-6 py-20">
         <div className="rounded-[2.5rem] border border-border bg-muted/30 p-6 sm:p-10 lg:p-12">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
