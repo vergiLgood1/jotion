@@ -3,17 +3,18 @@ import { Logo } from "./logo";
 
 const Footer = () => {
   return (
-    <div className="flex items-center w-full p-6 bg-background z-50 dark:bg-[#1F1F1F]">
+    <footer className="mx-auto flex w-full max-w-7xl flex-col gap-4 border-t border-border px-6 py-8 text-sm text-muted-foreground md:flex-row md:items-center">
       <Logo />
-      <div className="md:ml-auto w-full justify-between md:justify-end flex items-center gap-x-2 text-muted-foreground">
-        <Button variant="ghost" size="sm">
-            Privacy Policy
+      <p className="md:ml-4">A focused place to write, organize, and publish your work.</p>
+      <div className="flex items-center gap-x-2 md:ml-auto">
+        <Button variant="ghost" size="sm" className="text-muted-foreground">
+          Privacy
         </Button>
-        <Button variant="ghost" size="sm">
-            Term & Conditions
+        <Button variant="ghost" size="sm" className="text-muted-foreground">
+          Terms
         </Button>
       </div>
-    </div>
+    </footer>
   );
 };
 
