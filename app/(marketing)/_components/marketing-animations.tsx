@@ -13,6 +13,51 @@ export const MarketingAnimations = () => {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
+      gsap.set("[data-bg-line]", {
+        strokeDasharray: 620,
+        strokeDashoffset: 620,
+      });
+
+      gsap.to("[data-bg-line]", {
+        strokeDashoffset: -620,
+        duration: 14,
+        ease: "none",
+        repeat: -1,
+        stagger: 1.6,
+      });
+
+      gsap.to("[data-bg-node]", {
+        scale: 1.18,
+        opacity: 0.9,
+        transformOrigin: "center center",
+        duration: 3.6,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        stagger: {
+          each: 0.18,
+          from: "random",
+        },
+      });
+
+      gsap.to("[data-bg-card]", {
+        y: -10,
+        opacity: 0.7,
+        duration: 6,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        stagger: 0.5,
+      });
+
+      gsap.to("[data-bg-orbit]", {
+        rotate: 360,
+        transformOrigin: "50% 50%",
+        duration: 90,
+        ease: "none",
+        repeat: -1,
+      });
+
       gsap.from("[data-hero-reveal]", {
         y: 28,
         opacity: 0,
