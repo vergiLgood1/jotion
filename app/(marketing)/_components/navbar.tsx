@@ -1,7 +1,9 @@
 "use client";
 
 import { useConvexAuth } from "convex/react";
+import gsap from "gsap";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
@@ -20,6 +22,25 @@ const navItems = [
 const Navbar = () => {
     const { isAuthenticated, isLoading } = useConvexAuth();
     const scrolled = useScrollTop();
+    const navRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const nav = navRef.current;
+
+        if (!nav) return;
+
+        const reduceMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        gsap.to(nav, {
+            maxWidth: scrolled ? "72rem" : "96rem",
+            borderRadius: scrolled ? "9999px" : "1rem",
+            duration: reduceMotion ? 0 : 0.45,
+            ease: "power3.out",
+            overwrite: "auto",
+        });
+    }, [scrolled]);
 
     return (
         <header
@@ -28,11 +49,12 @@ const Navbar = () => {
             )}
         >
             <div
+                ref={navRef}
                 className={cn(
-                    "mx-auto flex h-16 items-center justify-between px-4 transition-all duration-300 sm:px-6",
+                    "mx-auto flex h-16 w-full max-w-[96rem] items-center justify-between px-4 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 sm:px-6",
                     scrolled
-                        ? "max-w-6xl rounded-full border border-border/40 bg-background/75 shadow-sm backdrop-blur-xl"
-                        : "max-w-8xl rounded-2xl bg-transparent"
+                        ? "border border-border/40 bg-background/75 shadow-sm backdrop-blur-xl"
+                        : "bg-transparent"
                 )}
             >
                 {/* LEFT */}
