@@ -5,7 +5,6 @@ import gsap from "gsap";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { useScrollTop } from "@/hooks/use-scroll-top";
@@ -148,10 +147,6 @@ const Navbar = () => {
                             <UserButton afterSignOutUrl="/" />
                         </>
                     )}
-
-                    <div className="ml-1">
-                        <ModeToggle />
-                    </div>
                 </div>
             </div>
         </header>
