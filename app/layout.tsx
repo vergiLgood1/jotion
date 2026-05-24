@@ -1,16 +1,16 @@
 
-import { Toaster } from "sonner";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
 
-import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-import "./globals.css";
 import { EdgeStoreProvider } from "@/lib/edgestore";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Jotion",

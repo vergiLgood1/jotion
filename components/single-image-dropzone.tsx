@@ -59,6 +59,15 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
       return null;
     }, [value]);
 
+    // Cleanup blob URL to prevent memory leaks
+    React.useEffect(() => {
+      return () => {
+        if (imageUrl && imageUrl.startsWith('blob:')) {
+          URL.revokeObjectURL(imageUrl);
+        }
+      };
+    }, [imageUrl]);
+
     // dropzone configuration
     const {
       getRootProps,
@@ -142,11 +151,15 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
 
           {imageUrl ? (
             // Image Preview
-            <Image
-              className="h-full w-full rounded-md object-cover"
-              src={imageUrl}
-              alt={acceptedFiles[0]?.name}
-            />
+            <div className="relative h-full w-full">
+              <Image
+                className="rounded-md object-cover"
+                src={imageUrl}
+                alt={acceptedFiles[0]?.name ?? 'Preview'}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           ) : (
             // Upload Icon
             <div className="flex flex-col items-center justify-center text-xs text-gray-400">
