@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, Inbox, MenuIcon, Plus, PlusCircle, Search, Settings, Trash } from "lucide-react";
+import { ChevronsLeft, Inbox, MenuIcon, Plus, Search, Settings, Trash } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { ElementRef, useEffect, useRef, useState } from "react";
+import { ElementRef, useCallback, useEffect, useRef, useState } from "react";
 
 import { useMediaQuery } from "usehooks-ts";
 import UserItem from "./user-item";
@@ -35,20 +35,6 @@ const Navigation = () => {
     const navbarRef = useRef<ElementRef<"div">>(null)
     const [isResetting, setIsResetting] = useState(false);
     const [isCollapsed, setIscollapsed] = useState(isMobile);
-
-    useEffect(() => {
-        if(isMobile) {
-            collapse();
-        }else {
-            resetWidht();
-        }
-    }, [isMobile]);
-
-    useEffect(() => {
-        if(isMobile) {
-            collapse();
-        }
-    }, [pathname, isMobile])
 
     const handleMouseDown = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -83,7 +69,7 @@ const Navigation = () => {
         document.removeEventListener("mouseup", handleMouseUp);
     };
 
-    const resetWidht = () => {
+    const resetWidht = useCallback(() => {
         if(sidebarRef.current && navbarRef.current) {
             setIscollapsed(false);
             setIsResetting(true);
@@ -93,8 +79,8 @@ const Navigation = () => {
             navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px")
         };
         setTimeout(() => setIsResetting(false), 300)
-    }
-    const collapse = () => {
+    }, [isMobile])
+    const collapse = useCallback(() => {
         if(sidebarRef.current && navbarRef.current) {
             setIscollapsed(true);
             setIsResetting(true);
@@ -104,7 +90,21 @@ const Navigation = () => {
             navbarRef.current.style.setProperty("left", "0")
             setTimeout(() => setIsResetting(false), 300);
         };
-    }
+    }, [])
+
+    useEffect(() => {
+        if(isMobile) {
+            collapse();
+        }else {
+            resetWidht();
+        }
+    }, [collapse, isMobile, resetWidht]);
+
+    useEffect(() => {
+        if(isMobile) {
+            collapse();
+        }
+    }, [collapse, pathname, isMobile])
 
     const handleCreate = () => {
         const promise = create({ title: "Untitled" })

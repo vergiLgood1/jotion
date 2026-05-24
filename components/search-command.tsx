@@ -5,24 +5,18 @@ import { useSearch } from "@/hooks/use-search";
 import { useUser } from "@clerk/clerk-react"
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "./ui/command";
-import { CornerDownLeft, File } from "lucide-react";
-import { DialogFooter } from "./ui/dialog";
+import { File } from "lucide-react";
 
 export const SearchCommand = () => {
     const { user } = useUser();
     const router = useRouter();
     const documents = useQuery(api.documents.getSearch);
-    const [ isMounted, setIsMounted ] = useState(false);
 
     const toggle = useSearch((store) => store.toggle);
     const isOpen = useSearch((store) => store.isOpen);
     const onClose = useSearch((store) => store.onClose);
-
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
 
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -40,10 +34,6 @@ export const SearchCommand = () => {
     const onSelect = (id: string) => {
         router.push(`/documents/${id}`);
         onClose();
-    }
-
-    if(!isMounted) {
-        return null;
     }
 
     return (
