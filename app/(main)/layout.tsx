@@ -1,17 +1,17 @@
 "use client";
 
-import { useConvexAuth } from "convex/react";
+import { SearchCommand } from "@/components/search-command";
 import { Spinner } from "@/components/ui/spinner";
+import { useConvexAuth } from "convex/react";
 import { redirect } from "next/navigation";
 import Navigation from "./_components/navigation";
-import { SearchCommand } from "@/components/search-command";
 
-const MarketingLayout = ({ children }: { children: React.ReactNode }) => {
+const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useConvexAuth();
 
   if (isLoading) {
     return (
-      <div className="h-full flex items-center justify-center">
+      <div className="h-screen flex items-center justify-center">
         <Spinner size="lg" />
       </div>
     );
@@ -22,7 +22,7 @@ const MarketingLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="h-full flex dark:bg-[#1F1F1F]">
+    <div className="h-screen flex dark:bg-[#1F1F1F]">
       <Navigation/>
       <main className="flex-1 h-full overflow-y-auto">
       <SearchCommand/>
@@ -32,4 +32,4 @@ const MarketingLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default MarketingLayout;
+export default MainLayout;
