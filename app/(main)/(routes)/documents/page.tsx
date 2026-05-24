@@ -37,7 +37,8 @@ const DocumentsPage = () => {
              width="300"
              alt="empty"
              className="dark:hidden"
-            
+             style={{ width: "300px", height: "auto" }}
+             
             />
             <Image
              src="/assets/images/empty-dark.png"
@@ -45,7 +46,8 @@ const DocumentsPage = () => {
              width="300"
              alt="empty"
              className="hidden dark:block"
-            
+             style={{ width: "300px", height: "auto" }}
+             
             />
 
             <h2 className="text-lg font-medium">

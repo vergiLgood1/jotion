@@ -1,7 +1,7 @@
 'use client'
 
 import { useSettings } from "@/hooks/use-settings"
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { ModeToggle } from "@/components/mode-toggle";
 
@@ -12,9 +12,12 @@ export const SettingsModal = () => {
         <Dialog open={settings.isOpen} onOpenChange={settings.onClose} >
             <DialogContent className="">
                 <DialogHeader className="border-b p-0 space-y-0 pb-3">
-                    <h2 className="text-lg font-medium">
+                    <DialogTitle className="text-lg font-medium">
                         My settings
-                    </h2>
+                    </DialogTitle>
+                    <DialogDescription>
+                        Manage appearance preferences for your workspace.
+                    </DialogDescription>
                 </DialogHeader>
                 <div className="flex items-center justify-between">
                     <div className="flex flex-col gap-y-1">
